@@ -1,0 +1,45 @@
+{
+  "name": "rs-challenge-findafriend-api",
+  "version": "0.0.0",
+  "description": "Find A Friend API - Rocketseat NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
+    "test:install-prisma-environment": "npm link vitest-environment-prisma",
+    "build": "tsup src --out-dir build",
+    "test:run": "vitest run --dir src/useCases",
+    "test": "vitest --dir src/useCases",
+    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
+    "test:e2e": "vitest run --dir src/http",
+    "test:e2e:watch": "vitest --dir src/http",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui --coverage.enabled=true"
+  },
+  "author": "Thiago Bignotto",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@types/node": "^20.14.12",
+    "bcryptjs": "^2.4.3",
+    "D": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "tsup": "^8.2.3",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/bcryptjs": "^2.4.6",
+    "eslint": "^9.8.0",
+    "globals": "^15.8.0",
+    "prisma": "^5.17.0",
+    "typescript-eslint": "^7.17.0",
+    "vite-tsconfig-paths": "^4.3.2"
+  }
+}
