@@ -1,5 +1,4 @@
 import { InvalidCredentialsError } from "@/global/errors/InvalidCredentials";
-import { NotFoundError } from "@/global/errors/NotFoundError";
 import { IOrgsRepository } from "@/repositories/orgs/IOrgsRepository";
 import { Org } from "@prisma/client";
 import { compare } from "bcryptjs";
@@ -22,7 +21,7 @@ export class AuthenticateOrgUseCase {
   }: AuthenticateOrgRequest): Promise<AuthenticateOrgResponse> {
     const foundOrg = await this.orgsRepository.findByEmail(email);
 
-    if (!foundOrg) throw new NotFoundError();
+    if (!foundOrg) throw new InvalidCredentialsError();
 
     const passwordMatch = await compare(password, foundOrg.passwordHash);
     if (!passwordMatch) throw new InvalidCredentialsError();

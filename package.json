@@ -20,6 +20,8 @@
   "author": "Thiago Bignotto",
   "license": "MIT",
   "dependencies": {
+    "@fastify/cookie": "^9.3.1",
+    "@fastify/jwt": "^8.0.1",
     "@prisma/client": "^5.17.0",
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^20.14.12",
