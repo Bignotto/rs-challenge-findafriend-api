@@ -24,4 +24,43 @@ describe("Create Org Controller", () => {
 
     expect(response.statusCode).toEqual(201);
   });
+
+  it("should not be able to create a new org without a phone number", async () => {
+    const response = await request(app.server).post("/orgs").send({
+      address: "Av 51, 1000",
+      cep: "13450-980",
+      email: "petcollective@gmail.com",
+      name: "Pet Collective",
+      password: "some password",
+      userName: "June August",
+    });
+
+    expect(response.statusCode).toEqual(400);
+  });
+
+  it("should not be able to create a new org without address", async () => {
+    const response = await request(app.server).post("/orgs").send({
+      cep: "13450-980",
+      email: "petcollective@gmail.com",
+      name: "Pet Collective",
+      password: "some password",
+      phone: "12345678901",
+      userName: "June August",
+    });
+
+    expect(response.statusCode).toEqual(400);
+  });
+
+  it("should not be able to create a new org without cep", async () => {
+    const response = await request(app.server).post("/orgs").send({
+      address: "Av 51, 1000",
+      email: "petcollective@gmail.com",
+      name: "Pet Collective",
+      password: "some password",
+      phone: "12345678901",
+      userName: "June August",
+    });
+
+    expect(response.statusCode).toEqual(400);
+  });
 });
