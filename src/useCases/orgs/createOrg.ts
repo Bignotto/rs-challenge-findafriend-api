@@ -1,3 +1,4 @@
+import { EmailInUseError } from "@/global/errors/EmailInUseError";
 import { IOrgsRepository } from "@/repositories/orgs/IOrgsRepository";
 import { Org } from "@prisma/client";
 import { hash } from "bcryptjs";
@@ -28,6 +29,9 @@ export class CreateOrgUseCase {
     cep,
     address,
   }: CreateOrgRequest): Promise<CreateOrgResponse> {
+    const found = await this.orgsRepository.findByEmail(email);
+    if (found) throw new EmailInUseError();
+
     //if (password.length < 6) throw new PasswordLengthError();
     const passwordHash = await hash(password, 6);
 

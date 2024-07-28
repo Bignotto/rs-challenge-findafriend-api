@@ -55,8 +55,8 @@ model Org {
   id           String @id @default(uuid())
   name         String
   userName     String
-  email        String
-  phone        String
+  email        String @unique
+  phone        String @unique
   passwordHash String
   cep          String
   address      String
