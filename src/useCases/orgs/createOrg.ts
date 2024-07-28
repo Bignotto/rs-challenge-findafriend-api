@@ -2,6 +2,8 @@ import { EmailInUseError } from "@/global/errors/EmailInUseError";
 import { IOrgsRepository } from "@/repositories/orgs/IOrgsRepository";
 import { Org } from "@prisma/client";
 import { hash } from "bcryptjs";
+import { NoAddressError } from "./errors/NoAddressError";
+import { NoPhoneError } from "./errors/NoPhoneError";
 
 interface CreateOrgRequest {
   name: string;
@@ -29,6 +31,9 @@ export class CreateOrgUseCase {
     cep,
     address,
   }: CreateOrgRequest): Promise<CreateOrgResponse> {
+    if (!phone) throw new NoPhoneError();
+    if (!address || !cep) throw new NoAddressError();
+
     const found = await this.orgsRepository.findByEmail(email);
     if (found) throw new EmailInUseError();
 
