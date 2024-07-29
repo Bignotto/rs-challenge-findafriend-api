@@ -20,6 +20,8 @@ describe("Create Org Use Case", () => {
       password: "some password",
       phone: "12345678901",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
 
     expect(org.id).toEqual(expect.any(String));

@@ -13,6 +13,8 @@ interface CreateOrgRequest {
   password: string;
   cep: string;
   address: string;
+  city: string;
+  state: string;
 }
 
 interface CreateOrgResponse {
@@ -30,6 +32,8 @@ export class CreateOrgUseCase {
     password,
     cep,
     address,
+    city,
+    state,
   }: CreateOrgRequest): Promise<CreateOrgResponse> {
     if (!phone) throw new NoPhoneError();
     if (!address || !cep) throw new NoAddressError();
@@ -48,6 +52,8 @@ export class CreateOrgUseCase {
       phone,
       passwordHash,
       cep,
+      city,
+      state,
     });
 
     return { org };

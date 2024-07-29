@@ -60,6 +60,8 @@ model Org {
   passwordHash String
   cep          String
   address      String
+  city         String
+  state        String
   pet          Pet[]
 
   @@map("orgs")

@@ -27,6 +27,8 @@ describe("Create Pet Use Case", () => {
       passwordHash: await hash("some password", 6),
       phone: "12345678901",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
   });
 

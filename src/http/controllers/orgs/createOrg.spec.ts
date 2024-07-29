@@ -20,6 +20,8 @@ describe("Create Org Controller", () => {
       password: "some password",
       phone: "12345678901",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
 
     expect(response.statusCode).toEqual(201);
@@ -33,6 +35,8 @@ describe("Create Org Controller", () => {
       name: "Pet Collective",
       password: "some password",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
 
     expect(response.statusCode).toEqual(400);
@@ -46,6 +50,8 @@ describe("Create Org Controller", () => {
       password: "some password",
       phone: "12345678901",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
 
     expect(response.statusCode).toEqual(400);

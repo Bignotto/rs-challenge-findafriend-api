@@ -12,9 +12,11 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
     phone: z.string(),
     address: z.string(),
     cep: z.string(),
+    city: z.string(),
+    state: z.string(),
   });
 
-  const { name, userName, email, password, phone, address, cep } =
+  const { name, userName, email, password, phone, address, cep, city, state } =
     newOrgSchema.parse(request.body);
 
   try {
@@ -27,6 +29,8 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
       phone,
       address,
       cep,
+      city,
+      state,
     });
 
     return reply.status(201).send({ org });
