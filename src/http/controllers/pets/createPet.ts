@@ -12,7 +12,6 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     petSize: z.nativeEnum(PetSize),
     energyLevel: z.number(),
     humanDependencyLevel: z.number(),
-    orgId: z.string(),
     environment: z.nativeEnum(PetEnvironment),
   });
 
@@ -23,7 +22,6 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     petSize,
     energyLevel,
     humanDependencyLevel,
-    orgId,
     environment,
   } = createPetSchema.parse(request.body);
 
@@ -37,7 +35,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
       energyLevel,
       environment,
       humanDependencyLevel,
-      orgId,
+      orgId: request.user.sub,
     });
 
     return reply.status(201).send({ pet });

@@ -4,4 +4,6 @@ export interface IPetsRepository {
   create(data: Prisma.PetCreateInput): Promise<Pet>;
 
   findById(id: string): Promise<Pet | null>;
+
+  getAll(): Promise<Pet[] | null>;
 }

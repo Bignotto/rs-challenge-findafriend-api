@@ -16,4 +16,9 @@ export class PrismaPetsRepository implements IPetsRepository {
     });
     return foundPet;
   }
+
+  async getAll() {
+    const found = await prisma.pet.findMany();
+    return found;
+  }
 }

@@ -1,5 +1,4 @@
 import { InvalidCredentialsError } from "@/global/errors/InvalidCredentials";
-import { NotFoundError } from "@/global/errors/NotFoundError";
 import { InMemoryOrgsRepository } from "@/repositories/orgs/inMemory/inMemoryOrgsRepository";
 import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -21,6 +20,8 @@ describe("Authenticate Org Use Case", () => {
       passwordHash: await hash("some password", 6),
       phone: "12345678901",
       userName: "June August",
+      city: "River Clear",
+      state: "SP",
     });
   });
 
@@ -39,7 +40,7 @@ describe("Authenticate Org Use Case", () => {
         email: "wrong@gmail.com",
         password: "some password",
       }),
-    ).rejects.toBeInstanceOf(NotFoundError);
+    ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });
 
   it("should not be able to authenticate with wrong password", async () => {

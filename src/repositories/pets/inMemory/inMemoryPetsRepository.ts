@@ -28,4 +28,9 @@ export class InMemoryPetsRepository implements IPetsRepository {
     if (!found) return null;
     return found;
   }
+
+  async getAll() {
+    if (this.pets.length === 0) return null;
+    return this.pets;
+  }
 }

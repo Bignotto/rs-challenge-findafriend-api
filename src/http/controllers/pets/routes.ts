@@ -4,4 +4,5 @@ import { createPet } from "./createPet";
 
 export async function petRoutes(app: FastifyInstance) {
   app.post("/pets", { onRequest: [verifyJwt] }, createPet);
+  // app.post("/pets", createPet);
 }
