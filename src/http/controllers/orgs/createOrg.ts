@@ -33,8 +33,10 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
       state,
     });
 
+    console.log({ org });
     return reply.status(201).send({ org });
   } catch (error) {
+    console.log({ error });
     if (error instanceof EmailInUseError) {
       console.log({ error: error.message });
       return reply.status(409).send({ message: error.message });

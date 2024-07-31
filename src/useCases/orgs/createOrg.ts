@@ -35,6 +35,7 @@ export class CreateOrgUseCase {
     city,
     state,
   }: CreateOrgRequest): Promise<CreateOrgResponse> {
+    //TODO: validate phone already in use
     if (!phone) throw new NoPhoneError();
     if (!address || !cep) throw new NoAddressError();
 
