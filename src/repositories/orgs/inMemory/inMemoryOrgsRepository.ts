@@ -15,6 +15,8 @@ export class InMemoryOrgsRepository implements IOrgsRepository {
       passwordHash: data.passwordHash,
       phone: data.phone,
       userName: data.userName,
+      city: data.city,
+      state: data.state,
     };
 
     this.orgs.push(newOrg);
@@ -32,6 +34,14 @@ export class InMemoryOrgsRepository implements IOrgsRepository {
 
   async findById(id: string) {
     const found = this.orgs.find((org) => org.id === id);
+
+    if (!found) return null;
+
+    return found;
+  }
+
+  async findByPhone(phone: string) {
+    const found = this.orgs.find((org) => org.phone === phone);
 
     if (!found) return null;
 

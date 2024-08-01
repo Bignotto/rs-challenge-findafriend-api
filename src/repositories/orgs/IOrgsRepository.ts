@@ -5,4 +5,5 @@ export interface IOrgsRepository {
 
   findByEmail(email: string): Promise<Org | null>;
   findById(id: string): Promise<Org | null>;
+  findByPhone(phone: string): Promise<Org | null>;
 }

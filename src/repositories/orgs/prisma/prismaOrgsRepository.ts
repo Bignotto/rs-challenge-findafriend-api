@@ -25,4 +25,14 @@ export class PrismaOrgsRepository implements IOrgsRepository {
 
     return found;
   }
+
+  async findByPhone(phone: string) {
+    const found = await prisma.org.findUnique({
+      where: {
+        phone,
+      },
+    });
+
+    return found;
+  }
 }

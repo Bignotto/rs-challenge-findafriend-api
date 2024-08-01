@@ -4,6 +4,7 @@ import { Org } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { NoAddressError } from "./errors/NoAddressError";
 import { NoPhoneError } from "./errors/NoPhoneError";
+import { PhoneInUseError } from "./errors/PhoneInUseError";
 
 interface CreateOrgRequest {
   name: string;
@@ -35,8 +36,10 @@ export class CreateOrgUseCase {
     city,
     state,
   }: CreateOrgRequest): Promise<CreateOrgResponse> {
-    //TODO: validate phone already in use
     if (!phone) throw new NoPhoneError();
+    const foundPhone = await this.orgsRepository.findByPhone(phone);
+    if (foundPhone) throw new PhoneInUseError();
+
     if (!address || !cep) throw new NoAddressError();
 
     const found = await this.orgsRepository.findByEmail(email);
