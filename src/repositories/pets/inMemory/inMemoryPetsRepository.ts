@@ -44,6 +44,22 @@ export class InMemoryPetsRepository implements IPetsRepository {
       (org) => org.city === params.city,
     );
 
-    //BIG: finish this function
+    const pets = this.pets
+      .filter((pet) => cityOrgs.some((org) => org.id === pet.orgId))
+      .filter((pet) => (params.petAge ? pet.petAge === params.petAge : true))
+      .filter((pet) => (params.petSize ? pet.petSize === params.petSize : true))
+      .filter((pet) =>
+        params.energyLevel ? pet.energyLevel === params.energyLevel : true,
+      )
+      .filter((pet) =>
+        params.environment ? pet.environment === params.environment : true,
+      )
+      .filter((pet) =>
+        params.humanDependencyLevel
+          ? pet.humanDependencyLevel === params.humanDependencyLevel
+          : true,
+      );
+
+    return pets;
   }
 }

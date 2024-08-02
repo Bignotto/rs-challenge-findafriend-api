@@ -9,7 +9,7 @@ export interface SearchPetsResponse {
   pets: Pet[] | null;
 }
 
-export class SearchPetUseCase {
+export class SearchPetsUseCase {
   constructor(
     private petsRepository: IPetsRepository,
     private orgsRepository: IOrgsRepository,
