@@ -1,5 +1,6 @@
 import { InMemoryOrgsRepository } from "@/repositories/orgs/inMemory/inMemoryOrgsRepository";
 import { InMemoryPetsRepository } from "@/repositories/pets/inMemory/inMemoryPetsRepository";
+import { createOrgsAndPets } from "@/utils/test/createOrgsAndPets";
 import { Org, PetAge, PetEnvironment, PetSize } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -35,11 +36,11 @@ describe("Search Pets Use Case", () => {
     });
 
     await petsRepository.create({
-      about: "doguinho",
+      about: "cachorro grande",
       energyLevel: 4,
       environment: PetEnvironment.MEDIUM,
       humanDependencyLevel: 5,
-      name: "gomes",
+      name: "Dunga",
       org: {
         connect: {
           id: org.id,
@@ -75,7 +76,7 @@ describe("Search Pets Use Case", () => {
     });
 
     await petsRepository.create({
-      about: "doguinho",
+      about: "Dunga",
       energyLevel: 4,
       environment: PetEnvironment.MEDIUM,
       humanDependencyLevel: 5,
@@ -94,5 +95,53 @@ describe("Search Pets Use Case", () => {
     });
 
     expect(pets).toHaveLength(1);
+  });
+
+  it("should be able to filter pets by city and pet age", async () => {
+    await createOrgsAndPets(orgsRepository, petsRepository);
+
+    const { pets } = await sut.execute({
+      city: "Another City",
+      petAge: PetAge.ELDERLY,
+    });
+
+    expect(pets).toHaveLength(1);
+    expect(pets![0].name).toEqual("Totó");
+  });
+
+  it("should be able to filter pets by city and pet size", async () => {
+    await createOrgsAndPets(orgsRepository, petsRepository);
+
+    const { pets } = await sut.execute({
+      city: "River Clear",
+      petSize: PetSize.MEDIUM,
+    });
+
+    expect(pets).toHaveLength(1);
+    expect(pets![0].name).toEqual("Dunga");
+  });
+
+  it("should be able to filter pets by city and energy level", async () => {
+    await createOrgsAndPets(orgsRepository, petsRepository);
+
+    const { pets } = await sut.execute({
+      city: "Another City",
+      energyLevel: 2,
+    });
+
+    expect(pets).toHaveLength(1);
+    expect(pets![0].name).toEqual("Muxinga");
+  });
+
+  it("should be able to filter pets by city and pet human dependency level", async () => {
+    await createOrgsAndPets(orgsRepository, petsRepository);
+
+    const { pets } = await sut.execute({
+      city: "River Clear",
+      humanDependencyLevel: 5,
+    });
+
+    expect(pets).toHaveLength(1);
+    expect(pets![0].name).toEqual("Dunga");
   });
 });
