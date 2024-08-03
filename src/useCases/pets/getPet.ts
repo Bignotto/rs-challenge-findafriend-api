@@ -14,6 +14,7 @@ export class GetPetUseCase {
 
   async execute({ petId }: GetPetRequest): Promise<GetPetResponse> {
     const pet = await this.petsRepository.findById(petId);
+
     return { pet };
   }
 }
