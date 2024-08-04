@@ -4,7 +4,7 @@ import { PetAge, PetEnvironment, PetSize } from "@prisma/client";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-describe("Create Pet Controller", () => {
+describe("Get Pet Controller", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -13,10 +13,10 @@ describe("Create Pet Controller", () => {
     await app.close();
   });
 
-  it("should be able to create new pet", async () => {
+  it("should be able to get pet information with a pet id", async () => {
     const { token } = await createAuthenticatedUser(app, {});
 
-    const response = await request(app.server)
+    const newPetResponse = await request(app.server)
       .post("/pets")
       .set("Authorization", `Bearer ${token}`)
       .send({
@@ -29,6 +29,11 @@ describe("Create Pet Controller", () => {
         petSize: PetSize.SMALL,
       });
 
-    expect(response.statusCode).toEqual(201);
+    const response = await request(app.server).get(
+      `/pets/${newPetResponse.body.pet.id}`,
+    );
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.pet.name).toEqual("Caramelo");
   });
 });

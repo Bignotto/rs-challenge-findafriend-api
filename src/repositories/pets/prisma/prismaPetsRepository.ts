@@ -37,6 +37,16 @@ export class PrismaPetsRepository implements IPetsRepository {
           },
         },
       },
+
+      include: {
+        org: {
+          select: {
+            city: true,
+            name: true,
+            phone: true,
+          },
+        },
+      },
     });
     return pets;
   }

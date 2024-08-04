@@ -6,7 +6,7 @@ export async function getAllPets(request: FastifyRequest, reply: FastifyReply) {
     const getAllPetsUseCase = makeGetAllPetsUseCase();
     const pets = await getAllPetsUseCase.execute();
 
-    return reply.status(200).send({ pets });
+    return reply.status(200).send(pets);
   } catch (error) {
     throw error;
   }
